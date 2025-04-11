@@ -1,0 +1,3 @@
+9,my char contains: 
+27,enter a number
+53,The fibonacci seq is: 
