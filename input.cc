@@ -1,6 +1,5 @@
 int: num;
 char: my_char;
-// lets assign variable my_char a value
 my_char ='d';
 print("my char contains: ");
 println(my_char);

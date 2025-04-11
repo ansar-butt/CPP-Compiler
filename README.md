@@ -8,13 +8,15 @@ The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a 
 
 - Tokenizes source code into meaningful components (tokens and lexemes).
 - Supports:
-  - Keywords (`INT`, `CHAR`, `IF`, `ELSE`, etc.).
+  - Keywords (`INT`, `CHAR`, `IF`, `ELSE`, `WHILE`, `INPUT`,`PRINTLN`, `Print`).
   - Identifiers.
   - Numeric constants.
   - String and literal constants.
   - Operators (arithmetic, relational, assignment).
   - Separators (parentheses, braces, etc.).
   - Comments.
+  - While Loops
+  - Conditionals
 - Outputs tokens and lexemes to both the console and a file (`output.txt`).
 - Reports errors with line and column numbers for invalid tokens.
 
