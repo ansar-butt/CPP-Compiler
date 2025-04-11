@@ -2,23 +2,41 @@
 
 ## Project Overview
 
-The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a source code file (`input.cc`), tokenizes it, and outputs the tokens and their lexemes to the console and a file (`output.txt`). This project demonstrates the fundamental concepts of lexical analysis, including recognizing keywords, identifiers, constants, operators, and other language constructs.
+The **CPP-Compiler** is a simple compiler implementation written in C++. It performs lexical analysis, parsing, intermediate code generation (Three Address Code - TAC), and machine code generation. The project also includes a virtual machine (VM) to execute the generated machine code.
+
+This project demonstrates the fundamental concepts of compiler design, including tokenization, parsing, symbol table management, and code execution.
+
+---
 
 ## Features
 
-- Tokenizes source code into meaningful components (tokens and lexemes).
-- Supports:
-  - Keywords (`INT`, `CHAR`, `IF`, `ELSE`, `WHILE`, `INPUT`,`PRINTLN`, `Print`).
-  - Identifiers.
-  - Numeric constants.
-  - String and literal constants.
-  - Operators (arithmetic, relational, assignment).
-  - Separators (parentheses, braces, etc.).
-  - Comments.
-  - While Loops
-  - Conditionals
-- Outputs tokens and lexemes to both the console and a file (`output.txt`).
-- Reports errors with line and column numbers for invalid tokens.
+1. **Lexical Analysis**:
+
+   - Tokenizes the input source code into meaningful components (tokens and lexemes).
+   - Supports keywords, identifiers, numeric constants, string literals, operators, and separators.
+
+2. **Parsing**:
+
+   - Implements a recursive descent parser to validate the syntax of the input code.
+   - Generates a symbol table and TAC (Three Address Code).
+
+3. **Machine Code Generation**:
+
+   - Converts TAC into machine code instructions.
+   - Stores machine code in memory for execution.
+
+4. **Virtual Machine (VM)**:
+   - Executes the generated machine code.
+   - Supports input/output operations, arithmetic, and control flow.
+
+---
+
+## Project Structure
+
+- **Lexer**: Handles lexical analysis and tokenization.
+- **Parser**: Performs syntax analysis and generates TAC.
+- **MachineCodeGenerator**: Converts TAC into machine code.
+- **VM**: Executes the machine code.
 
 ---
 
@@ -27,7 +45,7 @@ The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a 
 ### Prerequisites
 
 - A C++ compiler (e.g., GCC, Clang, or MSVC).
-- A source code file named input.cc in the same directory as the program.
+- A source code file named input.cc containing the code to be compiled.
 
 ### Compilation
 
@@ -40,7 +58,7 @@ The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a 
 
 ### Running the Program
 
-1. Ensure the input.cc file contains the source code you want to analyze.
+1. Ensure the input.cc file contains the source code you want to compile.
 2. Run the compiled program:
    ```bash
    ./CPP-Compiler   # For Linux/Mac
@@ -49,8 +67,11 @@ The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a 
 
 ### Output
 
-- The program will display the tokens and their lexemes in the console.
-- The same output will be saved to a file named output.txt in the same directory.
+- **Tokens and Lexemes**: Saved in output.txt.
+- **Symbol Table**: Saved in symbolTable.txt.
+- **Three Address Code (TAC)**: Saved in TAC.txt.
+- **Machine Code**: Saved in MCG.txt.
+- **Execution Output**: Displayed in the console.
 
 ---
 
@@ -59,68 +80,103 @@ The **CPP-Compiler** is a basic lexical analyzer implemented in C++. It reads a 
 ### Input (`input.cc`)
 
 ```cpp
-int x = 10;
-char y = 'a';
-if (x > 5) {
-    print("Hello, World!");
-}
+int: num;
+char: my_char;
+my_char = 'd';
+print("my char contains: ");
+println(my_char);
 ```
 
-### Console Output
+### Output
+
+#### Tokens (`output.txt`)
 
 ```
 ('INT', '^')
-('ID', 'x')
-('=', '^')
-('NUM', '10')
+('ID', 'num')
 (';', '^')
 ('CHAR', '^')
-('ID', 'y')
+('ID', 'my_char')
+(';', '^')
+('ID', 'my_char')
 ('=', '^')
-('LIT', 'a')
+('LIT', 'd')
 (';', '^')
-('CS', 'IF')
-('(', '^')
-('ID', 'x')
-('RO', '>')
-('NUM', '5')
-(')', '^')
-('{', '^')
 ('PRINT', '^')
-('STR', 'Hello, World!')
-(')', '^')
+('STR', 'my char contains: ')
 (';', '^')
-('}', '^')
+('PRINTLN', '^')
+('ID', 'my_char')
+(';', '^')
 ```
 
-### File Output (`output.txt`)
+#### Symbol Table (`symbolTable.txt`)
 
-The same as the console output.
+```
+('INT', 'num, 0')
+('CHAR', 'my_char, 4')
+```
+
+#### Three Address Code (`TAC.txt`)
+
+```
+my_char = 'd'
+OUT "my char contains: "
+OUT my_char \n
+```
+
+#### Machine Code (`MCG.txt`)
+
+```
+18 100 4
+15 104 0
+14 4 1
+```
+
+#### Execution Output
+
+```
+my char contains:
+d
+```
 
 ---
 
-## Error Handling
+## Key Components
 
-If the program encounters an invalid token, it will display an error message with the token number, line number, and column number. For example:
+### Lexer
 
-```
-Error at Token Number 15, Located at Line 3, Column 7
-```
+- Tokenizes the input source code.
+- Handles keywords, identifiers, constants, operators, and separators.
 
----
+### Parser
 
-## Project Structure
+- Validates the syntax of the input code.
+- Generates a symbol table and TAC.
 
-- **Source.cpp**: The main source code for the lexical analyzer.
-- **input.cc**: The input file containing the source code to be analyzed.
-- **output.txt**: The file where the tokens and lexemes are saved.
+### Machine Code Generator
+
+- Converts TAC into machine code instructions.
+- Stores machine code in memory.
+
+### Virtual Machine (VM)
+
+- Executes the machine code.
+- Supports arithmetic, input/output, and control flow.
 
 ---
 
 ## Notes
 
 - Ensure the input.cc file is present in the same directory as the program before running it.
-- The program assumes a maximum input size of 10,240 characters. Adjust the `data` array size in `main()` if needed.
+- The program assumes a maximum input size of 10,240 characters. Adjust the `str` array size in the `lex` function if needed.
+
+---
+
+## Limitations
+
+- The compiler currently supports a limited subset of C-like syntax.
+- Error handling is basic and may need improvement for larger programs.
 
 ---
 
