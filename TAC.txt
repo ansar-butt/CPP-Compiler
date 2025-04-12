@@ -1,0 +1,8 @@
+OUT t0\n
+IN num
+a = 0
+b = 1
+c = 0
+OUT t1\n
+OUT a\n
+OUT b\n

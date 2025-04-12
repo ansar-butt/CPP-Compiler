@@ -26,17 +26,7 @@ public:
 		inputFilename = _inputFilename;
 		outputFilename = _outputFilename;
 	}
-	// struct Token{
-	//	Token(string t, string k) {
-	//		text = t;
-	//		kind = k;
-	//	}
-	//	string text;
-	//	string kind;
-	// };
-	// enum TokenType {
-	//	a=0
-	// };
+
 	int getCode(string str)
 	{
 		list<pair<int, string>>::iterator it;
@@ -2799,6 +2789,7 @@ public:
 };
 int main()
 {
+	cout.setstate(ios_base::failbit);
 	Lexer lexer("input.cc", "output.txt");
 	lexer.initialise();
 	lexer.readFile();
@@ -2814,6 +2805,8 @@ int main()
 		MachineCodeGenerator machineCodeGnerator(&parser, "TAC.txt", "MCG.txt");
 		machineCodeGnerator.convertTACtoMachineCode();
 
+		cout.clear();
+		cout << "Code Generation Succesful!!\nThe program will now runs.\n";
 		VM vm(&machineCodeGnerator, "strings.txt");
 		vm.initializeBytes();
 		vm.run();
